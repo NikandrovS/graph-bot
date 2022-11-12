@@ -1,7 +1,7 @@
 export default {
   defaultLang: "en",
   ru: {
-    boardInput: "Укажите url борда или адрес конракта",
+    boardInput: "Укажите url борда или адрес контракта",
     boardNotFound: "Борд не найден",
     welcome: "Добро пожаловать",
     welcomeGuide: "Воспользуйтесь командой /chart для получения графика",
