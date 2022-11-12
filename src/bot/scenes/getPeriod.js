@@ -29,7 +29,7 @@ getPeriodScene.action(/^daterange:.*/, async (ctx) => {
 
   const periods = {
     day: 1,
-    week: 3,
+    week: 7,
     month: 30,
   };
 
