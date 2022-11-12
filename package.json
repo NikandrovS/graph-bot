@@ -1,0 +1,31 @@
+{
+  "name": "graph-bot",
+  "version": "1.0.0",
+  "description": "Bot for displaying board charts",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon graphBot.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.1.3",
+    "canvas": "^2.10.1",
+    "cron": "^2.1.0",
+    "dotenv": "^16.0.3",
+    "knex": "^2.3.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "telegraf": "^4.10.0",
+    "uuid": "^9.0.0",
+    "vega": "^5.22.1"
+  },
+  "lint-staged": {
+    "app/**/*.{js,mjs}": [
+      "eslint --fix --ext js,mjs",
+      "git add"
+    ]
+  }
+}
