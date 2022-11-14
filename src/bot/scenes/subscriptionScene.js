@@ -84,7 +84,10 @@ subscriptionScene.action(/^daterange:.*/, async (ctx) => {
 
   await ctx.reply(paymentText);
 
-  await ctx.reply(text(ctx, "paymentCode", { voucher }), sendTokensKeyboard);
+  await ctx.replyWithHTML(
+    text(ctx, "paymentCode", { voucher: `<code>${voucher}</code>` }),
+    sendTokensKeyboard(text(ctx, "keyboardSendTokens"))
+  );
 
   ctx.scene.leave();
 });

@@ -40,7 +40,7 @@ const tables = [
   }),
   knex.schema.createTable("listeners", (table) => {
     table.bigint("user_id");
-    table.enu("listener", ["new-board", "boards-price-change", "coins-price-change"]);
+    table.enu("listener", ["new-board", "coin-price-change", "token-price-change"]);
     table.string("value");
   }),
 ];
