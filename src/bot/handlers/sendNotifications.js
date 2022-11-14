@@ -14,7 +14,7 @@ export default async (text, listener, value = null) => {
   if (!userIds.length) return;
 
   for (const { user_id: id, language_code, subscription_period } of userIds) {
-    if (!subscription_period || new Date() > subscription_period) continue;
+    // if (!subscription_period || new Date() > subscription_period) continue;
 
     const lang = language_code === "ru" ? "ru" : "en";
     await axios.get(
