@@ -32,6 +32,11 @@ export default {
     activeNotifiactionsCount: "Активно уведомлений о измении цены бордов: <%= count %>",
     newNotification: "Добавить уведомление",
     editList: "Редактировать список",
+    buyEvent: "Покупка",
+    sellEvent: "Продажа",
+    recievedEvent: "Получено",
+    spentEvent: "Потрачено",
+    priceChange: "Стоимость: <%= oldPrice %> -> <%= newPrice %>",
 
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -82,6 +87,11 @@ export default {
     activeNotifiactionsCount: "Your notifications for boards: <%= count %>",
     newNotification: "Add notification",
     editList: "Edit list",
+    buyEvent: "Bought",
+    sellEvent: "Sold",
+    recievedEvent: "Recieved",
+    spentEvent: "Spent",
+    priceChange: "Price: <%= oldPrice %> -> <%= newPrice %>",
 
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",

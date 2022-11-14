@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default async (text, listener, value = null) => {
   const userIds = await knex("listeners")
-    .select("user_id", "language_code")
+    .select("user_id", "language_code", "subscription_period")
     .leftJoin("users", "users.id", "listeners.user_id")
     .where({ listener })
     .modify((qb) => {
@@ -13,7 +13,9 @@ export default async (text, listener, value = null) => {
 
   if (!userIds.length) return;
 
-  for (const { user_id: id, language_code } of userIds) {
+  for (const { user_id: id, language_code, subscription_period } of userIds) {
+    if (!subscription_period || new Date() > subscription_period) continue;
+
     const lang = language_code === "ru" ? "ru" : "en";
     await axios.get(
       `https://api.telegram.org/bot${config.botToken}/sendMessage?chat_id=${id}&text=${encodeURIComponent(
