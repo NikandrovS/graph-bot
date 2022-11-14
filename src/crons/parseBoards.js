@@ -39,7 +39,7 @@ export const fetchBoards = async () => {
 
     await knex("boards").insert(boardsToInsert);
 
-    await generateNewBoardMessage(data.items.slice(-missingCount));
+    if (missingCount < 100) await generateNewBoardMessage(data.items.slice(-missingCount));
   } catch (error) {
     console.log("⚠️ ~ error", error);
   }

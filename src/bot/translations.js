@@ -2,6 +2,7 @@ export default {
   defaultLang: "en",
   ru: {
     boardInput: "Укажите url борда или адрес контракта",
+    boardTitleInput: "Укажите url борда",
     boardNotFound: "Борд не найден",
     welcome: "Добро пожаловать",
     welcomeGuide: "Воспользуйтесь командой /chart для получения графика",
@@ -25,8 +26,14 @@ export default {
     enableAction: "Включить",
     disableAction: "Выключить",
     settingsUpdate: "Настройки сохранены",
+    coinNotificationWasAdded: "Уведомления для борда «b/<%= boardName %>» включены",
     newBoards: "Новых бордов: <%= count %>",
+    activeNotifiactions: "Активные подписки, нажмите чтобы выключить",
+    activeNotifiactionsCount: "Активно уведомлений о измении цены бордов: <%= count %>",
+    newNotification: "Добавить уведомление",
+    editList: "Редактировать список",
 
+    keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
     keyboardPeriod: {
       day: "День",
@@ -45,6 +52,7 @@ export default {
   },
   en: {
     boardInput: "Type boards url or bsc address",
+    boardTitleInput: "Type boards url",
     boardNotFound: "Board is not found",
     welcome: "Welcome",
     welcomeGuide: "Use /chart command to get a chart",
@@ -63,13 +71,19 @@ export default {
     paymentCode: "Payment code: <%= voucher %>",
     paymentRecieved: "Payment was deposited: <%= voucher %>",
     newBoardNotify: "Notifications for new boards: <%= state %>",
-    enabledState: "enbled",
+    enabledState: "enabled",
     disabledState: "disabled",
     enableAction: "Enable",
     disableAction: "Didsable",
     settingsUpdate: "Settings were updated",
+    coinNotificationWasAdded: "Notifications for board «b/<%= boardName %>» were activated",
     newBoards: "New boards: <%= count %>",
+    activeNotifiactions: "Active notification, press to disable",
+    activeNotifiactionsCount: "Your notifications for boards: <%= count %>",
+    newNotification: "Add notification",
+    editList: "Edit list",
 
+    keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",
     keyboardPeriod: {
       day: "Day",

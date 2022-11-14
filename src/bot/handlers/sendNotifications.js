@@ -2,11 +2,14 @@ import { knex } from "../../models/index.js";
 import config from "../../config/index.js";
 import axios from "axios";
 
-export default async (text, listener) => {
+export default async (text, listener, value = null) => {
   const userIds = await knex("listeners")
     .select("user_id", "language_code")
     .leftJoin("users", "users.id", "listeners.user_id")
-    .where({ listener });
+    .where({ listener })
+    .modify((qb) => {
+      if (value) qb.where({ value });
+    });
 
   if (!userIds.length) return;
 
