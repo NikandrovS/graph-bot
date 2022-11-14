@@ -49,7 +49,7 @@ export default {
     },
     keyboardSubscription: {
       oneMonth: "1 Месяц",
-      sixMonths: "6 Месяц",
+      sixMonths: "6 Месяцев",
       twelveMonths: "12 Месяцев",
       allTime: "Навсегда",
       cancel: "Отмена",
