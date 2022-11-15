@@ -11,22 +11,22 @@ const subscriptionScene = new Scenes.BaseScene("subscriptionScene");
 
 const prices = [
   {
-    price: 1000,
+    price: 500,
     keyboard: "oneMonth",
     period: 1,
   },
   {
-    price: 5000,
+    price: 2500,
     keyboard: "sixMonths",
     period: 6,
   },
   {
-    price: 8000,
+    price: 4000,
     keyboard: "twelveMonths",
     period: 12,
   },
   {
-    price: 15000,
+    price: 10000,
     keyboard: "allTime",
     period: 1200,
   },

@@ -1,4 +1,4 @@
-import cancelKeyboard from "../keyboards/cancel.js";
+import previousRequests from "../keyboards/previousRequests.js";
 import translations from "../translations.js";
 import { knex } from "../../models/index.js";
 import { Scenes } from "telegraf";
@@ -10,9 +10,16 @@ chartScene.enter(async (ctx) => {
   ctx.scene.state.lang = translations[lang] ? lang : translations.defaultLang;
 
   try {
+    const requestHistory = await knex("board_requests")
+      .select("board_id", "url")
+      .where({ user_id: ctx.update.message.from.id })
+      .groupBy("board_id", "url")
+      .orderByRaw("max(id) desc")
+      .limit(4);
+
     const { message_id } = await ctx.reply(
       translations[ctx.scene.state.lang].boardInput,
-      cancelKeyboard(translations[ctx.scene.state.lang].keyboardCancel)
+      previousRequests(requestHistory, translations[ctx.scene.state.lang].keyboardCancel)
     );
 
     ctx.scene.state.welcomeMessage = message_id;
@@ -21,8 +28,16 @@ chartScene.enter(async (ctx) => {
   }
 });
 
+chartScene.action(/^boardId:.*/, async (ctx) => {
+  const id = ctx.callbackQuery.data.split(":")[1];
+
+  const board = await knex("boards").where({ id }).first();
+
+  return ctx.scene.enter("getPeriod", board);
+});
+
 chartScene.on("text", async (ctx) => {
-  const query = ctx.message.text.split("/b/");
+  const query = ctx.message.text.toLowerCase().split("b/");
 
   const searchParam = /^0x[a-fA-F0-9]{40}$/.test(ctx.message.text) ? { address: ctx.message.text } : { url: query[1] || query[0] };
 

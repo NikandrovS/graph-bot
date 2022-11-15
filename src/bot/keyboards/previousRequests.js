@@ -1,9 +1,8 @@
 import { Markup } from "telegraf";
+import knex from "knex";
 
-export default (activeBoards, cancelText) => {
-  const buttonsArr = activeBoards
-    .sort((a, b) => (a.url > b.url ? 1 : -1))
-    .map((b) => Markup.button.callback("✖️ b/" + b.url, "removeId:" + b.id));
+export default (boards, cancelText) => {
+  const buttonsArr = boards.map((b) => Markup.button.callback("b/" + b.url, "boardId:" + b.board_id));
 
   const chunkSize = 2;
   const formedArray = [];

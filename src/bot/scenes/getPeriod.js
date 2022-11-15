@@ -7,10 +7,11 @@ import { Scenes } from "telegraf";
 const getPeriodScene = new Scenes.BaseScene("getPeriod");
 
 getPeriodScene.enter(async (ctx) => {
-  const lang = ctx.update.message.from.language_code;
-  ctx.scene.state.lang = translations[lang] ? lang : translations.defaultLang;
+  const dataObject = ctx.update.message ? "message" : "callback_query";
+  const { id, language_code } = ctx.update[dataObject].from;
 
-  ctx.scene.state.user = ctx.update.message.from.id;
+  ctx.scene.state.lang = translations[language_code] ? language_code : translations.defaultLang;
+  ctx.scene.state.user = id;
 
   try {
     const { message_id } = await ctx.reply(
@@ -63,9 +64,11 @@ getPeriodScene.action(/^daterange:.*/, async (ctx) => {
     },
   ];
 
-  vegaGenerator(data, ctx, values[values.length - 1].supply);
+  vegaGenerator(data, ctx, values.length ? values[values.length - 1].supply : 0);
 
   await knex.raw("UPDATE users SET attempts = attempts + 1 WHERE id = ?", [ctx.scene.state.user]);
+
+  await knex("board_requests").insert({ user_id: ctx.scene.state.user, url: ctx.scene.state.url, board_id: ctx.scene.state.id });
 
   ctx.scene.leave();
 });

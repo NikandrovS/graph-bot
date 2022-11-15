@@ -1,8 +1,8 @@
 export default {
   defaultLang: "en",
   ru: {
-    boardInput: "Укажите url борда или адрес контракта",
-    boardTitleInput: "Укажите url борда",
+    boardInput: "Укажите название борда, url или адрес контракта",
+    boardTitleInput: "Укажите название или url борда",
     boardNotFound: "Борд не найден",
     welcome: "Добро пожаловать",
     welcomeGuide: "Воспользуйтесь командой /chart для получения графика",
@@ -56,8 +56,8 @@ export default {
     },
   },
   en: {
-    boardInput: "Type boards url or bsc address",
-    boardTitleInput: "Type boards url",
+    boardInput: "Type boards name, url or bsc address",
+    boardTitleInput: "Type boards name or url",
     boardNotFound: "Board is not found",
     welcome: "Welcome",
     welcomeGuide: "Use /chart command to get a chart",
