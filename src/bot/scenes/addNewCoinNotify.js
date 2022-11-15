@@ -13,7 +13,10 @@ newCoinNotify.enter(async (ctx) => {
 
 newCoinNotify.on("text", async (ctx) => {
   try {
-    const board = await knex("boards").where({ url: ctx.message.text.toLowerCase() }).first();
+    const query = ctx.message.text.split("/b/");
+    const boardName = query[1] || query[0];
+
+    const board = await knex("boards").where({ url: boardName.toLowerCase() }).first();
 
     if (!board) return await ctx.reply(text(ctx, "boardNotFound"));
 

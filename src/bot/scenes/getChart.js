@@ -22,7 +22,9 @@ chartScene.enter(async (ctx) => {
 });
 
 chartScene.on("text", async (ctx) => {
-  const searchParam = /^0x[a-fA-F0-9]{40}$/.test(ctx.message.text) ? { address: ctx.message.text } : { url: ctx.message.text };
+  const query = ctx.message.text.split("/b/");
+
+  const searchParam = /^0x[a-fA-F0-9]{40}$/.test(ctx.message.text) ? { address: ctx.message.text } : { url: query[1] || query[0] };
 
   const board = await knex("boards").where(searchParam).first();
 
