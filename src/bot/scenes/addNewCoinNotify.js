@@ -20,7 +20,9 @@ newCoinNotify.on("text", async (ctx) => {
 
     if (!board) return await ctx.reply(text(ctx, "boardNotFound"));
 
-    const isExists = await knex("listeners").where({ listener: "coin-price-change", value: board.id }).first();
+    const isExists = await knex("listeners")
+      .where({ user_id: ctx.message.from.id, listener: "coin-price-change", value: board.id })
+      .first();
 
     if (!isExists) await knex("listeners").insert({ user_id: ctx.message.from.id, listener: "coin-price-change", value: board.id });
 
