@@ -1,7 +1,6 @@
-import sendNotifications from "./sendNotifications.js";
-import translations from "../translations.js";
+import translations from "../src/bot/translations.js";
 
-export default async (boardId, boardUrl, oldPrice, newPrice) => {
+export default (boardId, boardUrl, oldPrice, newPrice) => {
   const priceDiff = ((newPrice - oldPrice) / 1000000000000000000).toFixed(3);
   const oldAmountInCoins = oldPrice / 100000000000000000;
   const newAmountInCoins = newPrice / 100000000000000000;
@@ -37,5 +36,9 @@ export default async (boardId, boardUrl, oldPrice, newPrice) => {
       .replace("<%= oldPrice %>", oldAmountInCoins.toFixed(1))
       .replace("<%= newPrice %>", newAmountInCoins.toFixed(1));
 
-  sendNotifications({ ru, en }, "coin-price-change", boardId);
+  return {
+    listener: "coin-price-change",
+    text: { ru, en },
+    value: boardId,
+  };
 };

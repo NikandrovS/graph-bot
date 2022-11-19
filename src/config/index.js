@@ -15,7 +15,13 @@ const mysql = {
   multipleStatements: process.env.MYSQL_MULTIPLE_STATEMENTS === "true",
 };
 
+const rabbit = {
+  host: process.env.RABBIT_HOST || "amqp://guest:guest@localhost",
+  messageQueue: 'messages'
+};
+
 export default {
   ...app,
+  rabbit,
   mysql,
 };
