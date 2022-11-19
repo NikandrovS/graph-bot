@@ -13,6 +13,7 @@ const tables = [
   knex.schema.createTable("supply", (table) => {
     table.increments("id");
     table.decimal("supply", 21, 0).notNullable();
+    table.integer("holders").unsigned();
     table.integer("board_id").unsigned().references("boards.id").notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
     table.charset("utf8mb4");

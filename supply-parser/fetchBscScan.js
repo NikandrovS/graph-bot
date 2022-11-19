@@ -15,7 +15,7 @@ export default async () => {
       .toString();
 
     const boards = await knex({ supply: knex.raw(`(${lastSupply})`) })
-      .select("boards.*", "supply.supply")
+      .select("boards.*", "supply.supply", "supply.holders")
       .rightJoin({ sup: knex.raw(`(${sortedSupply})`) }, function () {
         this.on("sup.my_id", "=", "supply.board_id").andOn("sup.my_time", "=", "supply.time");
       })
@@ -26,7 +26,7 @@ export default async () => {
       setTimeout(async function () {
         if (!arr.length) return;
 
-        const { id, url, address, supply } = arr.shift();
+        const { id, url, address, supply, holders } = arr.shift();
 
         try {
           const { data } = await axios.get("https://api.bscscan.com/api", {
@@ -38,13 +38,23 @@ export default async () => {
             },
           });
 
-          await knex("supply").insert({ supply: data.result, board_id: id, time });
+          const insertObject = { supply: data.result, board_id: id, time, holders };
 
           if (supply !== data.result) {
             const msg = generateCoinPriceMessage(id, url, supply, data.result);
 
             rabbitService.send(msg);
+
+            try {
+              const res = await axios.get("https://app.main.community/tags/url/" + url);
+
+              insertObject.holders = res.data.coin.holdersCount;
+            } catch (error) {
+              console.log("fetch board error");
+            }
           }
+
+          await knex("supply").insert(insertObject);
         } catch (error) {
           console.log("⚠️ ~ error", error);
         }
