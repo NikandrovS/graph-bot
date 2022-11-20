@@ -1,15 +1,15 @@
 import { Telegraf, session, Scenes } from "telegraf";
-import start from "./src/bot/handlers/start.js";
-import config from "./src/config/index.js";
+import start from "./handlers/start.js";
+import config from "../config/index.js";
 
-import checkForSubscription from "./src/bot/scenes/checkForSubscription.js";
-import notifyForCoinsChange from "./src/bot/scenes/notifyForCoinsChange.js";
-import subscriptionScene from "./src/bot/scenes/subscriptionScene.js";
-import notifyForNewBoard from "./src/bot/scenes/notifyForNewBoard.js";
-import editCoinsNotifies from "./src/bot/scenes/coinsNotifyList.js";
-import newCoinNotify from "./src/bot/scenes/addNewCoinNotify.js";
-import getPeriodScene from "./src/bot/scenes/getPeriod.js";
-import chartScene from "./src/bot/scenes/getChart.js";
+import checkForSubscription from "./scenes/checkForSubscription.js";
+import notifyForCoinsChange from "./scenes/notifyForCoinsChange.js";
+import subscriptionScene from "./scenes/subscriptionScene.js";
+import notifyForNewBoard from "./scenes/notifyForNewBoard.js";
+import editCoinsNotifies from "./scenes/coinsNotifyList.js";
+import newCoinNotify from "./scenes/addNewCoinNotify.js";
+import getPeriodScene from "./scenes/getPeriod.js";
+import chartScene from "./scenes/getChart.js";
 
 const stage = new Scenes.Stage([
   checkForSubscription,

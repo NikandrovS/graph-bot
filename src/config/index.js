@@ -3,6 +3,7 @@ dotenv.config();
 
 const app = {
   mainDB: process.env.MYSQL_DATABASE || "main_chart_bot",
+  moralisToken: process.env.MORALIS_API_KEY,
   botToken: process.env.BOT_TOKEN,
   freeAttempts: 10,
 };
@@ -20,8 +21,14 @@ const rabbit = {
   messageQueue: 'messages'
 };
 
+const token = {
+  address: '0xa5f249f401ba8931899a364d8e2699b5fa1d87a9',
+  chain: 'bsc'
+};
+
 export default {
   ...app,
   rabbit,
+  token,
   mysql,
 };

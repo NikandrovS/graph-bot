@@ -51,6 +51,11 @@ const tables = [
     table.string("url").notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
   }),
+  knex.schema.createTable("token_price", (table) => {
+    table.increments("id");
+    table.decimal("usd_price", 18, 1).notNullable();
+    table.timestamp("time").notNullable().defaultTo(knex.fn.now());
+  }),
 ];
 
 (async () => {

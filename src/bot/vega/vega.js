@@ -1,4 +1,4 @@
-import text from "./src/bot/handlers/translatedText.js";
+import text from "../handlers/translatedText.js";
 import vegaConfig from "./vegaConfig.js";
 import vega from "vega";
 

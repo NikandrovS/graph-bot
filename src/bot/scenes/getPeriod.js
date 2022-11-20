@@ -1,6 +1,6 @@
 import periodKeyboard from "../keyboards/period.js";
 import translations from "../translations.js";
-import vegaGenerator from "../../../vega.js";
+import vegaGenerator from "../vega/vega.js";
 import { knex } from "../../models/index.js";
 import { Scenes } from "telegraf";
 
