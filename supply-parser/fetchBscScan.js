@@ -1,5 +1,5 @@
-import generateCoinPriceMessage from "../supply-parser/generateCoinPriceMessage.js";
-import rabbitService from "../supply-parser/RabbitService.js";
+import generateCoinPriceMessage from "./generateCoinPriceMessage.js";
+import rabbitService from "./RabbitService.js";
 import { knex } from "../src/models/index.js";
 import axios from "axios";
 

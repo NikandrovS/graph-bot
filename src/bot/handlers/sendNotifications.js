@@ -17,10 +17,15 @@ export default async (text, listener, boardId) => {
     // if (!subscription_period || new Date() > subscription_period) continue;
 
     const lang = language_code === "ru" ? "ru" : "en";
-    await axios.get(
-      `https://api.telegram.org/bot${config.botToken}/sendMessage?chat_id=${id}&text=${encodeURIComponent(
-        text[lang]
-      )}&disable_web_page_preview=true&parse_mode=HTML`
-    );
+
+    try {
+      await axios.get(
+        `https://api.telegram.org/bot${config.botToken}/sendMessage?chat_id=${id}&text=${encodeURIComponent(
+          text[lang]
+        )}&disable_web_page_preview=true&parse_mode=HTML`
+      );
+    } catch (error) {
+      console.log("📛 telegram api error:", error.message || error);
+    }
   }
 };

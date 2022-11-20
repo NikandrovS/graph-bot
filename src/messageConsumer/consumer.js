@@ -1,3 +1,4 @@
+import sendRangeNotifications from "../bot/handlers/sendRangeNotifications.js";
 import sendNotifications from "../bot/handlers/sendNotifications.js";
 import config from "../config/index.js";
 import amqp from "amqplib";
@@ -6,7 +7,7 @@ const JSONparse = (string) => {
   try {
     return JSON.parse(string);
   } catch (error) {
-    return null;
+    return {};
   }
 };
 
@@ -16,12 +17,16 @@ export default (async () => {
 
   ch.assertQueue(config.rabbit.messageQueue, { durable: true });
 
-  ch.consume(config.rabbit.messageQueue, (msg) => {
+  ch.consume(config.rabbit.messageQueue, async (msg) => {
     const message = msg.content.toString();
 
-    const { text, listener, boardId } = JSONparse(message);
+    const { text, listener, boardId, range } = JSONparse(message);
 
-    sendNotifications(text, listener, boardId);
+    if (range) {
+      await sendRangeNotifications(text, listener, boardId, range);
+    } else {
+      await sendNotifications(text, listener, boardId);
+    }
 
     ch.ack(msg);
   });

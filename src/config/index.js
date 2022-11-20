@@ -19,12 +19,13 @@ const mysql = {
 
 const rabbit = {
   host: process.env.RABBIT_HOST || "amqp://guest:guest@localhost",
-  messageQueue: 'messages'
+  messageQueue: "messages",
 };
 
 const token = {
-  address: '0xa5f249f401ba8931899a364d8e2699b5fa1d87a9',
-  chain: 'bsc'
+  address: "0xa5f249f401ba8931899a364d8e2699b5fa1d87a9",
+  multiplier: 1000,
+  chain: "bsc",
 };
 
 export default {
