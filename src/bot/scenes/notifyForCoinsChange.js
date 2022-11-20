@@ -10,18 +10,18 @@ notifyForCoinsChange.enter(async (ctx) => {
     .count("*")
     .where({ user_id: ctx.update.message.from.id, listener: "coin-price-change" });
 
-  const user = await knex("users")
+  const [user] = await knex("users")
     .select("*", knex.raw(`(${countOfSubscriptions}) as count`))
     .leftJoin("listeners as l", function () {
       this.on("l.user_id", "=", "users.id").andOn(`l.listener`, "=", knex.raw("?", "coin-price-change"));
     })
     .where({ id: ctx.update.message.from.id });
 
-  if (!user.length) return ctx.reply("Use /start");
+  if (!user) return ctx.reply("Use /start");
 
   const { message_id } = await ctx.reply(
-    text(ctx, "activeNotifiactionsCount", { count: user[0].count }),
-    coinSceneKeyboard(text(ctx, "newNotification"), text(ctx, "editList"), text(ctx, "keyboardCancel"))
+    text(ctx, "activeNotifiactionsCount", { count: user.count }),
+    coinSceneKeyboard(text(ctx, "newNotification"), text(ctx, "editList"), text(ctx, "keyboardCancel"), user.count)
   );
 
   ctx.scene.state.welcomeMessage = message_id;

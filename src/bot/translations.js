@@ -39,6 +39,10 @@ export default {
     priceChange: "Стоимость: <%= oldPrice %> -> <%= newPrice %>",
     currentTokenPrice: "Текущая цена: <%= currentPrice %> за <%= multiplier %> токенов",
     openCmcChart: "Открыть график",
+    yourNotifications: "Установлено уведомлений: <%= count %>",
+    tokenPriceInput: "Введите цену по достижению которой вы получите уведомление",
+    incorrectInteger: "Введите число",
+    priceNotificationWasAdded: "Уведомление на цену: <%= value %>$ добавлено",
 
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -96,6 +100,10 @@ export default {
     priceChange: "Price: <%= oldPrice %> -> <%= newPrice %>",
     currentTokenPrice: "Current price: <%= currentPrice %>$ for <%= multiplier %> tokens",
     openCmcChart: "Open chart",
+    yourNotifications: "Your notifications: <%= count %>",
+    tokenPriceInput: "Type a number, you will receive a notification when it will be reached",
+    incorrectInteger: "Type a number",
+    priceNotificationWasAdded: "Notification for price: <%= value %>$ successfully added",
 
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",
