@@ -22,6 +22,8 @@ export default async () => {
       .leftJoin("boards", "boards.id", "supply.board_id")
       .orderBy("time", "desc");
 
+    const tokenPrice = await knex("token_price").orderBy("id", "desc").first();
+
     (function myLoop(arr) {
       setTimeout(async function () {
         if (!arr.length) return;
@@ -38,7 +40,9 @@ export default async () => {
             },
           });
 
-          const insertObject = { supply: data.result, board_id: id, time, holders };
+          const priceUsd = ((data.result / 100000000000000000) * tokenPrice.usd_price).toFixed(2);
+
+          const insertObject = { supply: data.result, board_id: id, time, holders, price_usd: priceUsd };
 
           if (supply !== data.result) {
             const msg = generateCoinPriceMessage(id, url, supply, data.result);
@@ -60,7 +64,7 @@ export default async () => {
         }
 
         myLoop(arr);
-      }, 260);
+      }, 210);
     })(boards);
   } catch (error) {
     console.error(error);
