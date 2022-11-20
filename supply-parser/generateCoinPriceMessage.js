@@ -39,6 +39,6 @@ export default (boardId, boardUrl, oldPrice, newPrice) => {
   return {
     listener: "coin-price-change",
     text: { ru, en },
-    value: boardId,
+    boardId,
   };
 };

@@ -19,9 +19,9 @@ export default (async () => {
   ch.consume(config.rabbit.messageQueue, (msg) => {
     const message = msg.content.toString();
 
-    const { text, listener, value } = JSONparse(message);
+    const { text, listener, boardId } = JSONparse(message);
 
-    sendNotifications(text, listener, value);
+    sendNotifications(text, listener, boardId);
 
     ch.ack(msg);
   });

@@ -37,6 +37,8 @@ export default {
     recievedEvent: "Получено",
     spentEvent: "Потрачено",
     priceChange: "Стоимость: <%= oldPrice %> -> <%= newPrice %>",
+    currentTokenPrice: "Текущая цена: <%= currentPrice %> за <%= multiplier %> токенов",
+    openCmcChart: "Открыть график",
 
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -92,6 +94,8 @@ export default {
     recievedEvent: "Recieved",
     spentEvent: "Spent",
     priceChange: "Price: <%= oldPrice %> -> <%= newPrice %>",
+    currentTokenPrice: "Current price: <%= currentPrice %>$ for <%= multiplier %> tokens",
+    openCmcChart: "Open chart",
 
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",

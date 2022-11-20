@@ -42,6 +42,7 @@ const tables = [
   knex.schema.createTable("listeners", (table) => {
     table.bigint("user_id");
     table.enu("listener", ["new-board", "coin-price-change", "token-price-change"]);
+    table.int("board_id");
     table.string("value");
   }),
   knex.schema.createTable("board_requests", (table) => {
@@ -53,7 +54,7 @@ const tables = [
   }),
   knex.schema.createTable("token_price", (table) => {
     table.increments("id");
-    table.decimal("usd_price", 18, 1).notNullable();
+    table.decimal("usd_price", 19, 18).notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
   }),
 ];

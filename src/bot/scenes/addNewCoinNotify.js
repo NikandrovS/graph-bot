@@ -26,10 +26,10 @@ newCoinNotify.action(/^boardId:.*/, async (ctx) => {
   const board = await knex("boards").where({ id }).first();
 
   const isExists = await knex("listeners")
-    .where({ user_id: ctx.scene.state.userId, listener: "coin-price-change", value: board.id })
+    .where({ user_id: ctx.scene.state.userId, listener: "coin-price-change", board_id: board.id })
     .first();
 
-  if (!isExists) await knex("listeners").insert({ user_id: ctx.scene.state.userId, listener: "coin-price-change", value: board.id });
+  if (!isExists) await knex("listeners").insert({ user_id: ctx.scene.state.userId, listener: "coin-price-change", board_id: board.id });
 
   await ctx.reply(text(ctx, "coinNotificationWasAdded", { boardName: board.url }));
 
@@ -46,10 +46,10 @@ newCoinNotify.on("text", async (ctx) => {
     if (!board) return await ctx.reply(text(ctx, "boardNotFound"));
 
     const isExists = await knex("listeners")
-      .where({ user_id: ctx.message.from.id, listener: "coin-price-change", value: board.id })
+      .where({ user_id: ctx.message.from.id, listener: "coin-price-change", board_id: board.id })
       .first();
 
-    if (!isExists) await knex("listeners").insert({ user_id: ctx.message.from.id, listener: "coin-price-change", value: board.id });
+    if (!isExists) await knex("listeners").insert({ user_id: ctx.message.from.id, listener: "coin-price-change", board_id: board.id });
 
     await ctx.reply(text(ctx, "coinNotificationWasAdded", { boardName: board.url }));
 

@@ -28,7 +28,7 @@ notifyForNewBoard.enter(async (ctx) => {
 
 notifyForNewBoard.action("enableAction", async (ctx) => {
   try {
-    await knex("listeners").insert({ user_id: ctx.callbackQuery.from.id, listener: "new-board", value: 1 });
+    await knex("listeners").insert({ user_id: ctx.callbackQuery.from.id, listener: "new-board" });
     await ctx.reply(text(ctx, "settingsUpdate"));
     return ctx.scene.leave();
   } catch (error) {
