@@ -43,7 +43,7 @@ export default {
     tokenPriceInput: "Введите цену по достижению которой вы получите уведомление",
     incorrectInteger: "Введите число",
     priceNotificationWasAdded: "Уведомление на цену: <%= value %>$ добавлено",
-    priceHasBeenReached: "Сработало уведомление: <%= executedNotifications %>",
+    priceHasBeenReached: "💸 Сработало уведомление: <%= executedNotifications %>",
 
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -105,7 +105,7 @@ export default {
     tokenPriceInput: "Type a number, you will receive a notification when it will be reached",
     incorrectInteger: "Type a number",
     priceNotificationWasAdded: "Notification for price: <%= value %>$ successfully added",
-    priceHasBeenReached: "Target price has been reached: <%= executedNotifications %>",
+    priceHasBeenReached: "💸 Target price has been reached: <%= executedNotifications %>",
 
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",
