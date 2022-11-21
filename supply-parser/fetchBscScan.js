@@ -7,20 +7,7 @@ export default async () => {
   try {
     const time = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    const lastSupply = knex("supply").orderBy("time", "desc").limit(4000).toString();
-    const sortedSupply = knex({ last: knex.raw(`(${lastSupply})`) })
-      .select("board_id AS my_id")
-      .max("time as my_time")
-      .groupBy("board_id")
-      .toString();
-
-    const boards = await knex({ supply: knex.raw(`(${lastSupply})`) })
-      .select("boards.*", "supply.supply", "supply.holders")
-      .rightJoin({ sup: knex.raw(`(${sortedSupply})`) }, function () {
-        this.on("sup.my_id", "=", "supply.board_id").andOn("sup.my_time", "=", "supply.time");
-      })
-      .leftJoin("boards", "boards.id", "supply.board_id")
-      .orderBy("time", "desc");
+    const boards = await knex("boards");
 
     const tokenPrice = await knex("token_price").orderBy("id", "desc").first();
 
@@ -28,7 +15,12 @@ export default async () => {
       setTimeout(async function () {
         if (!arr.length) return;
 
-        const { id, url, address, supply, holders } = arr.shift();
+        const { id, url, address } = arr.shift();
+
+        const lastResult = await knex("supply").where({ board_id: id }).orderBy("time", "desc").first();
+
+        const supply = lastResult ? lastResult.supply : 0;
+        const holders = lastResult ? lastResult.holders : null;
 
         try {
           const { data } = await axios.get("https://api.bscscan.com/api", {
