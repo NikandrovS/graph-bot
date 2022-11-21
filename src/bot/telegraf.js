@@ -2,6 +2,7 @@ import { Telegraf, session, Scenes } from "telegraf";
 import start from "./handlers/start.js";
 import config from "../config/index.js";
 
+import checkForSubscriptionTokenScene from "./scenes/tokenNotifySubscription.js";
 import checkForSubscription from "./scenes/checkForSubscription.js";
 import notifyForCoinsChange from "./scenes/notifyForCoinsChange.js";
 import subscriptionScene from "./scenes/subscriptionScene.js";
@@ -16,6 +17,7 @@ import tokenPrice from "./scenes/tokenPrice.js";
 import chartScene from "./scenes/getChart.js";
 
 const stage = new Scenes.Stage([
+  checkForSubscriptionTokenScene,
   checkForSubscription,
   notifyForCoinsChange,
   subscriptionScene,
