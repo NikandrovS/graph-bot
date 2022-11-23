@@ -15,6 +15,7 @@ import getPeriodScene from "./scenes/getPeriod.js";
 import tokenNotify from "./scenes/tokenNotify.js";
 import tokenPrice from "./scenes/tokenPrice.js";
 import chartScene from "./scenes/getChart.js";
+import feedback from "./scenes/feedback.js";
 
 const stage = new Scenes.Stage([
   checkForSubscriptionTokenScene,
@@ -30,6 +31,7 @@ const stage = new Scenes.Stage([
   tokenNotify,
   tokenPrice,
   chartScene,
+  feedback,
 ]);
 
 const bot = new Telegraf(config.botToken);
@@ -42,5 +44,6 @@ bot.command("/board_notify", (ctx) => ctx.scene.enter("notifyForNewBoard"));
 bot.command("/coin_notify", (ctx) => ctx.scene.enter("notifyForCoinsChange"));
 bot.command("/token_price", (ctx) => ctx.scene.enter("currentTokenPrice"));
 bot.command("/token_notify", (ctx) => ctx.scene.enter("notifyForTokensChange"));
+bot.command("/feedback", (ctx) => ctx.scene.enter("feedbackScene"));
 
 export default bot.launch();

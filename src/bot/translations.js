@@ -47,6 +47,8 @@ export default {
     priceNotificationWasAdded: "Уведомление на цену: <%= value %>$ добавлено",
     priceHasBeenReached: "💸 Сработало уведомление: <%= executedNotifications %>",
     pickChartType: "Выберите тип графика",
+    feedback: "Здесь вы можете оставить свой отзыв о работе бота или предложить идею для разработки новых возможностей. Просто напишите свое сообщение:",
+    messageSent: "Ваше сообщение доставлено. Спасибо что помогаете делать мой продукт лучше!",
 
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -112,6 +114,8 @@ export default {
     priceNotificationWasAdded: "Notification for price: <%= value %>$ successfully added",
     priceHasBeenReached: "💸 Target price has been reached: <%= executedNotifications %>",
     pickChartType: "Pick chart type",
+    feedback: "Here you can leave your feedback about this bot or suggest new feature. Just type your message bellow:",
+    messageSent: "Message sent. Thanks for your help in making my product better!",
 
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",
