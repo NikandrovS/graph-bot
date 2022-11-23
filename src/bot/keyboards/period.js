@@ -1,8 +1,8 @@
 import { Markup } from "telegraf";
 
-export default ({ day, week, month, allTime, cancel }) =>
+export default ({ day, week, month, allTime, goBack }) =>
   Markup.inlineKeyboard([
     [Markup.button.callback(day, "daterange:day"), Markup.button.callback(week, "daterange:week")],
     [Markup.button.callback(month, "daterange:month"), Markup.button.callback(allTime, "daterange:all")],
-    [Markup.button.callback(cancel, "cancel")],
+    [Markup.button.callback(goBack, "back")],
   ]);
