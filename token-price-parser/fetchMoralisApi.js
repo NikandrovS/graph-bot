@@ -16,7 +16,7 @@ export default async () => {
       url: `https://deep-index.moralis.io/api/v2/erc20/${config.token.address}/price?chain=${config.token.chain}`,
     });
 
-    await knex("token_price").insert({ usd_price: data.usdPrice, time });
+    await knex("token_price").insert({ bnb_price: data.nativePrice.value / 1000000000000000000, usd_price: data.usdPrice, time });
 
     if (data.usdPrice !== lastRecord.usd_price) {
       const previousPrice = lastRecord.usd_price * config.token.multiplier;
