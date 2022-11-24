@@ -33,8 +33,9 @@ export default async () => {
           });
 
           const priceUsd = ((data.result / 100000000000000000) * tokenPrice.usd_price).toFixed(2);
+          const priceBnb = ((data.result / 100000000000000000) * tokenPrice.bnb_price).toFixed(4);
 
-          const insertObject = { supply: data.result, board_id: id, time, holders, price_usd: priceUsd };
+          const insertObject = { supply: data.result, board_id: id, time, holders, price_usd: priceUsd, price_bnb: priceBnb };
 
           if (supply !== data.result) {
             const msg = generateCoinPriceMessage(id, url, supply, data.result);
