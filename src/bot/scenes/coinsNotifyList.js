@@ -6,11 +6,14 @@ import { Scenes } from "telegraf";
 const editCoinNotifiers = new Scenes.BaseScene("editCoinNotifiers");
 
 editCoinNotifiers.enter(async (ctx) => {
-  const activeBoards = await knex("listeners")
+  ctx.scene.state.activeBoards = await knex("listeners")
     .where({ listener: "coin-price-change", user_id: ctx.update.callback_query.from.id })
     .leftJoin("boards", "boards.id", "listeners.board_id");
 
-  const { message_id } = await ctx.reply(text(ctx, "activeNotifiactions"), editCoinsNotifies(activeBoards, text(ctx, "keyboardCancel")));
+  const { message_id } = await ctx.reply(
+    text(ctx, "activeNotifiactions"),
+    editCoinsNotifies(ctx.scene.state.activeBoards, text(ctx, "keyboardCancel"))
+  );
 
   ctx.scene.state.welcomeMessage = message_id;
 });
@@ -20,9 +23,9 @@ editCoinNotifiers.action(/^removeId:.*/, async (ctx) => {
 
   await knex("listeners").where({ user_id: ctx.callbackQuery.from.id, listener: "coin-price-change", board_id: id }).del();
 
-  await ctx.reply(text(ctx, "settingsUpdate"));
+  ctx.scene.state.activeBoards = ctx.scene.state.activeBoards.filter((n) => n.board_id !== +id);
 
-  return ctx.scene.leave();
+  ctx.editMessageText(text(ctx, "activeNotifiactions"), editCoinsNotifies(ctx.scene.state.activeBoards, text(ctx, "keyboardCancel")));
 });
 
 editCoinNotifiers.action("cancel", (ctx) => ctx.scene.leave());

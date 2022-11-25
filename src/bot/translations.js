@@ -49,6 +49,7 @@ export default {
     pickChartType: "Выберите тип графика",
     feedback: "Здесь вы можете оставить свой отзыв о работе бота или предложить идею для разработки новых возможностей. Просто напишите свое сообщение:",
     messageSent: "Ваше сообщение доставлено. Спасибо что помогаете делать мой продукт лучше!",
+    tryLater: "Попробуйте позже",
 
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -116,6 +117,7 @@ export default {
     pickChartType: "Pick chart type",
     feedback: "Here you can leave your feedback about this bot or suggest new feature. Just type your message bellow:",
     messageSent: "Message sent. Thanks for your help in making my product better!",
+    tryLater: "Try later",
 
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",

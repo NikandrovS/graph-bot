@@ -1,5 +1,4 @@
 import editTokensNotifies from "../keyboards/editTokensNotifies.js";
-import cancel from "../keyboards/cancel.js";
 import text from "../handlers/translatedText.js";
 import { knex } from "../../models/index.js";
 import { Scenes } from "telegraf";

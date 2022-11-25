@@ -1,4 +1,5 @@
 import previousRequests from "../keyboards/previousRequests.js";
+import text from "../handlers/translatedText.js";
 import translations from "../translations.js";
 import { knex } from "../../models/index.js";
 import { Scenes } from "telegraf";
@@ -43,7 +44,17 @@ chartScene.on("text", async (ctx) => {
 
   const board = await knex("boards").where(searchParam).first();
 
-  if (!board) return ctx.reply(translations[ctx.scene.state.lang].boardNotFound);
+  if (!board) {
+    if (!ctx.scene.state.tries) ctx.scene.state.tries = 0;
+    if (ctx.scene.state.tries >= 2) {
+      ctx.reply(text(ctx, "tryLater"));
+      return ctx.scene.leave();
+    }
+
+    ctx.scene.state.tries += 1;
+
+    return ctx.reply(translations[ctx.scene.state.lang].boardNotFound);
+  }
 
   return ctx.scene.enter("getPeriod", board);
 });

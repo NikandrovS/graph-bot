@@ -1,8 +1,18 @@
 import { Markup } from "telegraf";
-import knex from "knex";
+const defaultBoards = [
+  {
+    url: "cryptocurrency",
+    board_id: 90,
+  },
+  {
+    url: "rightnow",
+    board_id: 177,
+  },
+];
 
 export default (boards, cancelText) => {
-  const buttonsArr = boards.map((b) => Markup.button.callback("b/" + b.url, "boardId:" + b.board_id));
+  const suggestedBoards = boards.length ? boards : defaultBoards;
+  const buttonsArr = suggestedBoards.map((b) => Markup.button.callback("b/" + b.url, "boardId:" + b.board_id));
 
   const chunkSize = 2;
   const formedArray = [];
