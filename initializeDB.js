@@ -14,6 +14,8 @@ const tables = [
     table.increments("id");
     table.decimal("supply", 21, 0).notNullable();
     table.integer("holders").unsigned();
+    table.float("price_usd", 6, 2);
+    table.float("price_bnb", 6, 2);
     table.integer("board_id").unsigned().references("boards.id").notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
     table.charset("utf8mb4");
@@ -41,7 +43,7 @@ const tables = [
   }),
   knex.schema.createTable("listeners", (table) => {
     table.bigint("user_id");
-    table.enu("listener", ["new-board", "coin-price-change", "token-price-change"]);
+    table.enu("listener", ["new-board", "coin-price-change", "token-price-change", "user-balance-change"]);
     table.integer("board_id");
     table.string("value");
   }),
@@ -55,7 +57,18 @@ const tables = [
   knex.schema.createTable("token_price", (table) => {
     table.increments("id");
     table.decimal("usd_price", 19, 18).notNullable();
+    table.decimal("bnb_price", 19, 18).notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
+  }),
+  knex.schema.createTable("users_wallets", (table) => {
+    table.increments("id");
+    table.string("username");
+    table.specificType("user_wallet", "CHAR(42)").notNullable().unique();
+  }),
+  knex.schema.createTable("wallets_balances", (table) => {
+    table.specificType("wallet", "CHAR(42)").notNullable();
+    table.specificType("token", "CHAR(42)").notNullable();
+    table.decimal("balance", 26, 0).notNullable().unsigned();
   }),
 ];
 

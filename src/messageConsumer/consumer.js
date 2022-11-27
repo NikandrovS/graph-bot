@@ -20,12 +20,12 @@ export default (async () => {
   ch.consume(config.rabbit.messageQueue, async (msg) => {
     const message = msg.content.toString();
 
-    const { text, listener, boardId, range } = JSONparse(message);
+    const { text, listener, boardId, range, value } = JSONparse(message);
 
     if (range) {
       await sendRangeNotifications(text, listener, boardId, range);
     } else {
-      await sendNotifications(text, listener, boardId);
+      await sendNotifications(text, listener, boardId, value);
     }
 
     ch.ack(msg);

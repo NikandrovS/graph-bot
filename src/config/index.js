@@ -5,6 +5,7 @@ const app = {
   mainDB: process.env.MYSQL_DATABASE || "main_chart_bot",
   moralisToken: process.env.MORALIS_API_KEY,
   botToken: process.env.BOT_TOKEN,
+  freeBalanceNotifications: 1,
   freeTokenNotifications: 3,
   freeAttempts: 10,
 };
