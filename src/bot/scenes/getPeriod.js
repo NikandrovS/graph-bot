@@ -46,7 +46,12 @@ getPeriodScene.enter(async (ctx) => {
 });
 
 getPeriodScene.action("back", async (ctx) => {
-  await ctx.editMessageText(text(ctx, "pickChartType"), chartTypeKeyboard(ctx.scene.state.types, text(ctx, "keyboardCancel")));
+  try {
+    await ctx.editMessageText(text(ctx, "pickChartType"), chartTypeKeyboard(ctx.scene.state.types, text(ctx, "keyboardCancel")));
+  } catch (error) {
+    console.log("📛" + ctx.session.__scenes.current + "_scene_ERROR:" + (error.message || error));
+    await ctx.scene.leave();
+  }
 });
 
 getPeriodScene.action(/^type:.*/, async (ctx) => {
@@ -54,10 +59,15 @@ getPeriodScene.action(/^type:.*/, async (ctx) => {
 
   ctx.scene.state.selectedType = type;
 
-  await ctx.editMessageText(
-    translations[ctx.scene.state.lang].chartPeriod.replace("<%= boardName %>", ctx.scene.state.title),
-    periodKeyboard(translations[ctx.scene.state.lang].keyboardPeriod)
-  );
+  try {
+    await ctx.editMessageText(
+      translations[ctx.scene.state.lang].chartPeriod.replace("<%= boardName %>", ctx.scene.state.title),
+      periodKeyboard(translations[ctx.scene.state.lang].keyboardPeriod)
+    );
+  } catch (error) {
+    console.log("📛" + ctx.session.__scenes.current + "_scene_ERROR:" + (error.message || error));
+    ctx.scene.leave();
+  }
 });
 
 getPeriodScene.action(/^daterange:.*/, async (ctx) => {

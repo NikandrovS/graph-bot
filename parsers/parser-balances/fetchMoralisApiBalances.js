@@ -22,17 +22,24 @@ export default async (wallet, boardAddreses = [], boardUrls = [], init = false, 
 
     const lastBalances = await knex("wallets_balances").where({ wallet });
 
-    await knex("wallets_balances").where({ wallet }).del();
+    if (init) {
+      await knex("wallets_balances").where({ wallet }).del();
 
-    await knex("wallets_balances").insert(balances);
-
-    if (init) return;
+      await knex("wallets_balances").insert(balances);
+      return;
+    }
 
     const walletInfo = await knex("users_wallets").where({ user_wallet: wallet }).first();
 
     const msg = await generateBalanceMessage(boardUrls, lastBalances, balances, walletInfo, tokenPrice);
 
-    if (msg) rabbitService.send(msg);
+    if (msg) {
+      await knex("wallets_balances").where({ wallet }).del();
+
+      await knex("wallets_balances").insert(balances);
+
+      rabbitService.send(msg);
+    }
   } catch (error) {
     console.error("📛 ~ error", error.message || error);
   }
