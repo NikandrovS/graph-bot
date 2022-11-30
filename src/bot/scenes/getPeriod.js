@@ -159,9 +159,13 @@ getPeriodScene.action(/^daterange:.*/, async (ctx) => {
 
   vegaGenerator(ctx.scene.state.selectedType, data, ctx, titles[ctx.scene.state.selectedType]);
 
-  await knex.raw("UPDATE users SET attempts = attempts + 1 WHERE id = ?", [ctx.scene.state.user]);
+  try {
+    await knex.raw("UPDATE users SET attempts = attempts + 1 WHERE id = ?", [ctx.scene.state.user]);
 
-  await knex("board_requests").insert({ user_id: ctx.scene.state.user, url: ctx.scene.state.url, board_id: ctx.scene.state.id });
+    await knex("board_requests").insert({ user_id: ctx.scene.state.user, url: ctx.scene.state.url, board_id: ctx.scene.state.id });
+  } catch (error) {
+    console.error("📛" + ctx.session.__scenes.current + "_scene_ERROR:" + (error.message || error));
+  }
 
   ctx.scene.leave();
 });
