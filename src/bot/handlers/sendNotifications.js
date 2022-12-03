@@ -26,7 +26,8 @@ export default async (text, listener, boardId, value) => {
         )}&disable_web_page_preview=true&parse_mode=HTML`
       );
     } catch (error) {
-      console.log("📛 telegram api error:", error);
+      if (error.config) console.log("📛 telegram api error:", error.config.url);
+      if (error.response) console.log(error.response.data);
     }
   }
 };

@@ -13,7 +13,7 @@ export default async (boardsList) => {
     acc += `${region[b.regionId]} <a href="https://main.community/b/${b.url}">b/${b.url}</a>` + "\n";
     acc += b.description + "\n";
     acc +=
-      "<b>" + translations.ru.chartTitlePrice + ": " + b.coin.coinPrice.toFixed(1) + (b.coin.coinPrice >= 1000 ? " ⚜️" : "") + "</b>\n\n";
+      "<b>" + translations.ru.newBoardPrice + ": " + b.coin.coinPrice.toFixed(1) + (b.coin.coinPrice >= 1000 ? " ⚜️" : "") + "</b>\n\n";
     return acc;
   }, "");
 
@@ -23,7 +23,7 @@ export default async (boardsList) => {
     acc += `${region[b.regionId]} <a href="https://main.community/b/${b.url}">b/${b.url}</a>` + "\n";
     acc += b.description + "\n";
     acc +=
-      "<b>" + translations.en.chartTitlePrice + ": " + b.coin.coinPrice.toFixed(1) + (b.coin.coinPrice >= 1000 ? " ⚜️" : "") + "</b>\n\n";
+      "<b>" + translations.en.newBoardPrice + ": " + b.coin.coinPrice.toFixed(1) + (b.coin.coinPrice >= 1000 ? " ⚜️" : "") + "</b>\n\n";
     return acc;
   }, "");
 
