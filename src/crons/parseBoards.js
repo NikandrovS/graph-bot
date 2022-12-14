@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default () => {
-  const job = new CronJob(process.env.DEV_CRON_TIME || "*/45 * * * * *", fetchBoards, null, true, "Europe/Moscow");
+  const job = new CronJob(process.env.DEV_CRON_TIME || "45 * * * * *", fetchBoards, null, true, "Europe/Moscow");
 };
 
 export const fetchBoards = async () => {
@@ -43,7 +43,7 @@ export const fetchBoards = async () => {
 
     for (const [i, board] of newBoards.entries()) {
       const { data } = await axios.get(`https://app.main.community/tags/${board.id}/moderators`);
-      newBoards[i].owner = data.onwers[0].name;
+      newBoards[i].owner = data.owners[0].name;
     }
 
     if (missingCount < 100) await generateNewBoardMessage(newBoards);
