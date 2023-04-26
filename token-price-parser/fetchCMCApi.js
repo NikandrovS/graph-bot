@@ -16,13 +16,13 @@ export default async () => {
       url: `https://pro-api.coinmarketcap.com/v2/tools/price-conversion?amount=1&id=${config.token.cmcMainId}`,
     });
 
-    if (!data) throw new Error('No data received from Coin Market Cap')
+    if (!data) throw new Error("No data received from Coin Market Cap");
 
-    await knex("token_price").insert({ bnb_price: 0, usd_price: data.quote.USD.price, time });
+    await knex("token_price").insert({ bnb_price: 0, usd_price: data.data.quote.USD.price, time });
 
-    if (data.quote.USD.price !== lastRecord.usd_price) {
+    if (data.data.quote.USD.price !== lastRecord.usd_price) {
       const previousPrice = lastRecord.usd_price * config.token.multiplier;
-      const newPrice = data.quote.USD.price * config.token.multiplier;
+      const newPrice = data.data.quote.USD.price * config.token.multiplier;
 
       const result = await knex("listeners")
         .select("user_id")
