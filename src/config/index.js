@@ -4,6 +4,7 @@ dotenv.config();
 const app = {
   mainDB: process.env.MYSQL_DATABASE || "main_chart_bot",
   moralisToken: process.env.MORALIS_API_KEY,
+  cmcToken: process.env.CMC_API_KEY,
   botToken: process.env.BOT_TOKEN,
   freeBalanceNotifications: 1,
   freeTokenNotifications: 3,
@@ -25,6 +26,7 @@ const rabbit = {
 
 const token = {
   address: "0xa5f249f401ba8931899a364d8e2699b5fa1d87a9",
+  cmcMainId: '19764',
   multiplier: 1000,
   chain: "bsc",
 };
