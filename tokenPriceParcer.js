@@ -3,5 +3,5 @@ import fetchMoralisApi from "./token-price-parser/fetchMoralisApi.js";
 import { CronJob } from "cron";
 
 (() => {
-  new CronJob("*/30 * * * * *", fetchMoralisApi, null, true, "Europe/Moscow");
+  new CronJob("* * * * * *", fetchMoralisApi, null, true, "Europe/Moscow");
 })();
