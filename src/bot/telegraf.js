@@ -52,7 +52,7 @@ bot.command("/board_notify", (ctx) => ctx.scene.enter("notifyForNewBoard"));
 bot.command("/coin_notify", (ctx) => ctx.scene.enter("notifyForCoinsChange"));
 bot.command("/token_price", (ctx) => ctx.scene.enter("currentTokenPrice"));
 bot.command("/token_notify", (ctx) => ctx.scene.enter("notifyForTokensChange"));
-bot.command("/users_notify", (ctx) => ctx.scene.enter("notifyForBalanceChange"));
+// bot.command("/users_notify", (ctx) => ctx.scene.enter("notifyForBalanceChange"));
 bot.command("/feedback", (ctx) => ctx.scene.enter("feedbackScene"));
 
 export default bot.launch();
