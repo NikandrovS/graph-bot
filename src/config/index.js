@@ -26,13 +26,21 @@ const rabbit = {
 
 const token = {
   address: "0xa5f249f401ba8931899a364d8e2699b5fa1d87a9",
-  cmcMainId: '19764',
+  cmcMainId: "19764",
   multiplier: 1000,
   chain: "bsc",
 };
 
+const periods = {
+  day: 1,
+  week: 7,
+  month: 30,
+  quarter: 90,
+};
+
 export default {
   ...app,
+  periods,
   rabbit,
   token,
   mysql,

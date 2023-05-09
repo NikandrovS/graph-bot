@@ -15,6 +15,7 @@ export default {
     chartTitleHolders: "👥 Держатели: <%= holders %>",
     chartPeriod: "Борд «<%= boardName %>». Выберите период графика:",
     expiredTrial: "Для получения графика, необходимо оплатить подписку, воспользуйтесь командой /subscription",
+    lockedPeriod: "Данный диапазон доступен с подпиской, воспользуйтесь командой /subscription",
     expiredTrialToken:
       "Чтобы добавлять более <%= count %> уведомлений, необходимо оплатить подписку, воспользуйтесь командой /subscription",
     expiredTrialBalance:
@@ -63,13 +64,15 @@ export default {
     userAssetTitle: "Актив: <%= asset %>",
     userAmountTitle: "Количество: <%= amount %> (<%= percent %>%)",
     userCostTitle: "Стоимость: ≈<%= cost %> (<%= price %>)",
-
+    
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
+    keyboardBack: "« Назад",
     keyboardPeriod: {
       day: "День",
       week: "Неделя",
       month: "Месяц",
+      quarter: "Квартал",
       allTime: "За все время",
       goBack: "« Назад",
     },
@@ -96,6 +99,7 @@ export default {
     chartTitleHolders: "👥 Holders: <%= holders %>",
     chartPeriod: "Board «<%= boardName %>». Choose chart period:",
     expiredTrial: "To request new chart activate subscription with /subscription command",
+    lockedPeriod: "This time period is available with subscription, activate subscription with /subscription command",
     expiredTrialToken: "To set more than <%= count %> notifications, activate subscription with /subscription command",
     expiredTrialBalance: "To set more than <%= count %> notification, activate subscription with /subscription command",
     subscriptionIsAvailableUntil: "Subscription is available until:",
@@ -141,13 +145,15 @@ export default {
     userAssetTitle: "Asset: <%= asset %>",
     userAmountTitle: "Amount: <%= amount %> (<%= percent %>%)",
     userCostTitle: "Cost: ≈<%= cost %> (<%= price %>)",
-
+    
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",
+    keyboardBack: "« Back",
     keyboardPeriod: {
       day: "Day",
       week: "Week",
       month: "Month",
+      quarter: "Quarter",
       allTime: "All time",
       goBack: "« Back",
     },

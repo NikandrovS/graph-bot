@@ -39,6 +39,8 @@ export const fetchBoards = async () => {
 
     await knex("boards").insert(boardsToInsert);
 
+    if (missingCount > 100) return;
+
     const newBoards = data.items.slice(-missingCount);
 
     for (const [i, board] of newBoards.entries()) {
@@ -46,7 +48,7 @@ export const fetchBoards = async () => {
       newBoards[i].owner = data.owners[0].name;
     }
 
-    if (missingCount < 100) await generateNewBoardMessage(newBoards);
+    await generateNewBoardMessage(newBoards);
   } catch (error) {
     console.log("⚠️ ~ error", error);
   }

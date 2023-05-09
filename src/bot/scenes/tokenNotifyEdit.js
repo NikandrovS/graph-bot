@@ -12,7 +12,7 @@ editTokenNotifiers.enter(async (ctx) => {
 
   const { message_id } = await ctx.reply(
     text(ctx, "activeNotifiactions"),
-    editTokensNotifies(ctx.scene.state.notifications, text(ctx, "keyboardCancel"))
+    editTokensNotifies(ctx.scene.state.notifications, text(ctx, "keyboardCancel"), text(ctx, "keyboardBack"))
   );
 
   ctx.scene.state.welcomeMessage = message_id;
@@ -25,7 +25,14 @@ editTokenNotifiers.action(/^removeValue:.*/, async (ctx) => {
 
   ctx.scene.state.notifications = ctx.scene.state.notifications.filter((n) => n.value !== value);
 
-  ctx.editMessageText(text(ctx, "activeNotifiactions"), editTokensNotifies(ctx.scene.state.notifications, text(ctx, "keyboardCancel")));
+  ctx.editMessageText(
+    text(ctx, "activeNotifiactions"),
+    editTokensNotifies(ctx.scene.state.notifications, text(ctx, "keyboardCancel"), text(ctx, "keyboardBack"))
+  );
+});
+
+editTokenNotifiers.action("back", (ctx) => {
+  return ctx.scene.enter("notifyForTokensChange")
 });
 
 editTokenNotifiers.action("cancel", (ctx) => ctx.scene.leave());

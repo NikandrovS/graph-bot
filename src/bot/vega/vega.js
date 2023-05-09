@@ -2,6 +2,9 @@ import mainConfig from "./vegaConfigMain.js";
 import usdtConfig from "./vegaConfigUsdt.js";
 import mainHoldersConfig from "./vegaConfigMainHolders.js";
 import usdtHoldersConfig from "./vegaConfigUsdtHolders.js";
+import appConfig from "../../config/index.js";
+import FormData from "form-data";
+import axios from "axios";
 import vega from "vega";
 
 import fs from "fs";
@@ -9,7 +12,9 @@ import path from "path";
 import { v4 as uuid } from "uuid";
 const __dirname = path.dirname("./");
 
-export default (type = "main", data, ctx, caption) => {
+// if having issue with VegaRenderer -> npm ci
+
+export default (receiver, type = "main", data, url, caption) => {
   try {
     const config = {
       main: mainConfig,
@@ -19,7 +24,7 @@ export default (type = "main", data, ctx, caption) => {
     };
 
     const spec = config[type];
-    spec.title.text = "b/" + ctx.scene.state.url;
+    spec.title.text = "b/" + url;
     spec.data = data;
 
     if (["mainHolders", "usdtHolders"].includes(type)) {
@@ -47,7 +52,21 @@ export default (type = "main", data, ctx, caption) => {
 
         stream.pipe(out);
         out.on("finish", async () => {
-          await ctx.replyWithPhoto({ source: `./${name}.jpeg` }, { caption });
+          const bodyFormData = new FormData();
+
+          bodyFormData.append("chat_id", receiver);
+          bodyFormData.append("caption", caption);
+          bodyFormData.append("photo", fs.createReadStream(`./${name}.jpeg`));
+
+          axios({
+            method: "post",
+            url: `https://api.telegram.org/bot${appConfig.botToken}/sendPhoto`,
+            data: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data" },
+          }).catch(function (body) {
+            if (body.response.status !== 403) console.log(body.response);
+          });
+
           fs.unlinkSync(__dirname + `/${name}.jpeg`);
         });
       })

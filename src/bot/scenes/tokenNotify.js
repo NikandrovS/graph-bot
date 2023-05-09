@@ -6,16 +6,19 @@ import { Scenes } from "telegraf";
 const notifyForTokensChange = new Scenes.BaseScene("notifyForTokensChange");
 
 notifyForTokensChange.enter(async (ctx) => {
-  const countOfSubscriptions = knex({ l: "listeners" })
-    .count("*")
-    .where({ user_id: ctx.update.message.from.id, listener: "token-price-change" });
+  const userId = ctx.update.message ? ctx.update.message.from.id : ctx.update.callback_query.from.id;
+
+  const countOfSubscriptions = knex({ l: "listeners" }).count("*").where({
+    user_id: userId,
+    listener: "token-price-change",
+  });
 
   const user = await knex("users")
     .select("*", knex.raw(`(${countOfSubscriptions}) as count`))
     .leftJoin("listeners as l", function () {
       this.on("l.user_id", "=", "users.id").andOn(`l.listener`, "=", knex.raw("?", "token-price-change"));
     })
-    .where({ id: ctx.update.message.from.id })
+    .where({ id: userId })
     .first();
 
   if (!user) return ctx.reply("Use /start");

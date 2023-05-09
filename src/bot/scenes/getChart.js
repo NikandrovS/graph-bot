@@ -34,7 +34,7 @@ chartScene.action(/^boardId:.*/, async (ctx) => {
 
   const board = await knex("boards").where({ id }).first();
 
-  return ctx.scene.enter("getPeriod", board);
+  return ctx.scene.enter("getPeriod", { ...board, restrictions: ctx.scene.state.restrictions });
 });
 
 chartScene.on("text", async (ctx) => {
@@ -56,7 +56,7 @@ chartScene.on("text", async (ctx) => {
     return ctx.reply(translations[ctx.scene.state.lang].boardNotFound);
   }
 
-  return ctx.scene.enter("getPeriod", board);
+  return ctx.scene.enter("getPeriod", { ...board, restrictions: ctx.scene.state.restrictions });
 });
 
 chartScene.action("cancel", (ctx) => ctx.scene.leave());

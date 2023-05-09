@@ -1,6 +1,6 @@
 import { Markup } from "telegraf";
 
-export default (notifications, cancelText) => {
+export default (notifications, cancelText, backText) => {
   const buttonsArr = notifications
     .sort((a, b) => +a.value - +b.value)
     .map((n) => Markup.button.callback(n.value + "$", "removeValue:" + n.value));
@@ -14,7 +14,7 @@ export default (notifications, cancelText) => {
     formedArray.push(chunk);
   }
 
-  formedArray.push([Markup.button.callback(cancelText, "cancel")]);
+  formedArray.push([Markup.button.callback(backText, "back"), Markup.button.callback(cancelText, "cancel")]);
 
   return Markup.inlineKeyboard(formedArray);
 };

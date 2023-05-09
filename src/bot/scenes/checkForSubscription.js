@@ -8,14 +8,16 @@ const checkForSubscription = new Scenes.BaseScene("checkForSubscription");
 checkForSubscription.enter(async (ctx) => {
   const user = await knex("users").where({ id: ctx.update.message.from.id }).first();
 
-  if (!user) return ctx.reply('Use /start')
+  if (!user) return ctx.reply("Use /start");
 
-  if (user.attempts >= config.freeAttempts && new Date() > user.subscription_period) {
-    await ctx.reply(text(ctx, "expiredTrial"));
-    return ctx.scene.leave();
-  }
+  const restrictions = user.attempts >= config.freeAttempts && new Date() > user.subscription_period;
 
-  ctx.scene.enter("chartScene");
+  // if (user.attempts >= config.freeAttempts && new Date() > user.subscription_period) {
+  //   await ctx.reply(text(ctx, "expiredTrial"));
+  //   return ctx.scene.leave();
+  // }
+
+  ctx.scene.enter("chartScene", { restrictions });
 });
 
 export default checkForSubscription;
