@@ -1,6 +1,7 @@
 import generateCoinPriceMessage from "./generateCoinPriceMessage.js";
 import rabbitService from "./RabbitService.js";
 import { knex } from "../src/models/index.js";
+import config from "../src/config/index.js";
 import axios from "axios";
 
 export default async () => {
@@ -31,6 +32,15 @@ export default async () => {
               apikey: process.env.BSC_API_KEY,
             },
           });
+
+          if (!data.result) {
+            await axios.get(
+              `https://api.telegram.org/bot${config.botToken}/sendMessage?chat_id=309661344&text=${encodeURIComponent(
+                `${id}, ${url}, ${time}, ${data.result}, ${data.message}, ${data.status}`
+              )}&disable_web_page_preview=true&parse_mode=HTML`
+            );
+            return myLoop(arr);
+          }
 
           const priceUsd = ((data.result / 100000000000000000) * tokenPrice.usd_price).toFixed(2);
           const priceBnb = ((data.result / 100000000000000000) * tokenPrice.bnb_price).toFixed(4);
