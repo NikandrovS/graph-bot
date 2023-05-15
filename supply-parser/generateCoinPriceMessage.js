@@ -1,6 +1,6 @@
 import translations from "../src/bot/translations.js";
 
-export default (boardId, boardUrl, oldPrice, newPrice) => {
+export default (boardId, boardUrl, oldPrice, newPrice, listener = "coin-price-change") => {
   const priceDiff = ((newPrice - oldPrice) / 1000000000000000000).toFixed(3);
   const oldAmountInCoins = oldPrice / 100000000000000000;
   const newAmountInCoins = newPrice / 100000000000000000;
@@ -37,7 +37,7 @@ export default (boardId, boardUrl, oldPrice, newPrice) => {
       .replace("<%= newPrice %>", newAmountInCoins.toFixed(1));
 
   return {
-    listener: "coin-price-change",
+    listener,
     text: { ru, en },
     boardId,
   };

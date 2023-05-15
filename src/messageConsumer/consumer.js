@@ -22,7 +22,9 @@ export default (async () => {
 
     const { text, listener, boardId, range, value } = JSONparse(message);
 
-    if (range) {
+    if (listener === "board-on-sale") {
+      await sendNotifications(text, listener);
+    } else if (range) {
       await sendRangeNotifications(text, listener, boardId, range);
     } else {
       await sendNotifications(text, listener, boardId, value);

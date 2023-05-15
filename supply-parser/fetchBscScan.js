@@ -52,6 +52,10 @@ export default async () => {
 
             rabbitService.send(msg);
 
+            if (data.result < 1e19) {
+              rabbitService.send(generateCoinPriceMessage(id, url, supply, data.result, "board-on-sale"));
+            }
+
             try {
               const res = await axios.get("https://app.main.community/tags/url/" + url);
 
