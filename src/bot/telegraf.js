@@ -16,6 +16,7 @@ import userNotifyEdit from "./scenes/userNotifyEdit.js";
 import userNotifyNew from "./scenes/userNotifyNew.js";
 import getPeriodScene from "./scenes/getPeriod.js";
 import tokenNotify from "./scenes/tokenNotify.js";
+import tokenPriceChart from "./scenes/tokenPriceChart.js";
 import tokenPrice from "./scenes/tokenPrice.js";
 import userNotify from "./scenes/userNotify.js";
 import chartScene from "./scenes/getChart.js";
@@ -29,6 +30,7 @@ const stage = new Scenes.Stage([
   subscriptionScene,
   notifyForNewBoard,
   editCoinsNotifies,
+  tokenPriceChart,
   tokenNotifyEdit,
   userNotifyEdit,
   getPeriodScene,
@@ -50,6 +52,7 @@ bot.command("/chart", (ctx) => ctx.scene.enter("checkForSubscription"));
 bot.command("/subscription", (ctx) => ctx.scene.enter("subscriptionScene"));
 bot.command("/board_notify", (ctx) => ctx.scene.enter("notifyForNewBoard"));
 bot.command("/coin_notify", (ctx) => ctx.scene.enter("notifyForCoinsChange"));
+bot.command("/token_price_chart", (ctx) => ctx.scene.enter("currentTokenPriceChart"));
 bot.command("/token_price", (ctx) => ctx.scene.enter("currentTokenPrice"));
 bot.command("/token_notify", (ctx) => ctx.scene.enter("notifyForTokensChange"));
 // bot.command("/users_notify", (ctx) => ctx.scene.enter("notifyForBalanceChange"));

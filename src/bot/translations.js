@@ -64,6 +64,7 @@ export default {
     userAssetTitle: "Актив: <%= asset %>",
     userAmountTitle: "Количество: <%= amount %> (<%= percent %>%)",
     userCostTitle: "Стоимость: ≈<%= cost %> (<%= price %>)",
+    priceChartTitle: "MAIN/USD График цены за последние 24 часа",
     
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -145,6 +146,7 @@ export default {
     userAssetTitle: "Asset: <%= asset %>",
     userAmountTitle: "Amount: <%= amount %> (<%= percent %>%)",
     userCostTitle: "Cost: ≈<%= cost %> (<%= price %>)",
+    priceChartTitle: "MAIN/USD Price Chart Past 24 Hours",
     
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",

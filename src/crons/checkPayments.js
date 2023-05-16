@@ -57,14 +57,17 @@ export const fetchPayments = async () => {
           const messageLang = translations[lang] ? lang : translations.defaultLang;
 
           await trx("vouchers").update({ status: "paid" }).where({ id: unpaidVoucher.id });
-          await trx("users").where({ id: unpaidVoucher.user_id }).update({ subscription_period: date });
+          await trx("users")
+            .where({ id: unpaidVoucher.user_id })
+            .update({ subscription_period: date < "2038-01-01 23:59:59" ? date : "2038-01-01 23:59:59" });
+
+          await trx.commit();
 
           await axios.get(
-            `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${unpaidVoucher.user_id}&text=${encodeURIComponent(
-              translations[messageLang].paymentRecieved.replace("<%= voucher %>", unpaidVoucher.voucher)
-            )}`
+            `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${
+              unpaidVoucher.user_id
+            }&text=${encodeURIComponent(translations[messageLang].paymentRecieved.replace("<%= voucher %>", unpaidVoucher.voucher))}`
           );
-          await trx.commit();
         } catch (error) {
           await trx.rollback();
           console.error(error.messa || error);

@@ -21,7 +21,8 @@
     "nodemon": "^2.0.20",
     "telegraf": "^4.10.0",
     "uuid": "^9.0.0",
-    "vega": "^5.22.1"
+    "vega": "^5.22.1",
+    "vega-lite": "5.2.0"
   },
   "lint-staged": {
     "app/**/*.{js,mjs}": [
