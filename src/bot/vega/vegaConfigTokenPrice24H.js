@@ -38,7 +38,7 @@ export default {
       field: "price",
       type: "quantitative",
       scale: { zero: false, nice: true },
-      axis: { tickCount: 6, labelFontSize: 23, tickSize: 10, tickWidth: 3 },
+      axis: { format: "$", tickCount: 6, labelFontSize: 23, tickSize: 10, tickWidth: 3 },
 
       stack: null,
     },
