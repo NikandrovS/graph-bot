@@ -1,5 +1,6 @@
 import generateTokenPriceMessage from "./generateTokenPriceMessage.js";
 import rabbitService from "../supply-parser/RabbitService.js";
+import fetchDexGuru from "./fetchDexGuruApi.js";
 import { knex } from "../src/models/index.js";
 import config from "../src/config/index.js";
 import axios from "axios";
@@ -18,7 +19,7 @@ export default async () => {
 
     if (!data) throw new Error("No data received from Coin Market Cap");
 
-    await knex("token_price").insert({ bnb_price: 0, usd_price: data.data.quote.USD.price, time });
+    const [newId] = await knex("token_price").insert({ bnb_price: 0, usd_price: data.data.quote.USD.price, time });
 
     if (data.data.quote.USD.price !== lastRecord.usd_price) {
       const previousPrice = lastRecord.usd_price * config.token.multiplier;
@@ -36,6 +37,8 @@ export default async () => {
 
       rabbitService.send(msg);
     }
+
+    await fetchDexGuru(newId)
   } catch (error) {
     console.error("📛 ~ error", error.message || error);
   }

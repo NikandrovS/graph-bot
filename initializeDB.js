@@ -59,6 +59,8 @@ const tables = [
     table.decimal("usd_price", 19, 18).notNullable();
     table.decimal("bnb_price", 19, 18).notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
+    table.decimal("liquidity", 22, 18).unsigned().notNullable();
+    table.decimal("volume_24h", 22, 18).unsigned().notNullable();
   }),
   knex.schema.createTable("users_wallets", (table) => {
     table.increments("id");
