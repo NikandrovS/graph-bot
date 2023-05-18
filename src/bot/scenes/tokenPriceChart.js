@@ -22,7 +22,7 @@ currentTokenPriceChart.enter(async (ctx) => {
     dateFrom.setDate(dateFrom.getDate() - 1);
 
     const values = await knex("token_price")
-      .select(knex.raw("usd_price * 1000 as price, 'main' as symbol, time as date"))
+      .select(knex.raw("usd_price * 1000 as price, 'main' as symbol, time as date, volume_24h, liquidity"))
       .where("time", "<", dateTo)
       .where("time", ">=", dateFrom);
 
@@ -35,6 +35,15 @@ currentTokenPriceChart.enter(async (ctx) => {
 
     tokenPriceChart.title.text = text(ctx, "priceChartTitle");
     tokenPriceChart.title.subtitle = `${todayRatio >= 1 ? "⇧" : "⇩"} ${percent.toFixed(2)}%`;
+
+    const metaInfo = values.find((price) => price.liquidity && price.volume_24h);
+
+    if (metaInfo) {
+      tokenPriceChart.encoding.x.title = text(ctx, "priceChartSubtitle", {
+        liquidity: (+metaInfo.liquidity).toFixed(1),
+        volume: (+metaInfo.volume_24h).toFixed(1),
+      });
+    }
 
     const data = { values };
 

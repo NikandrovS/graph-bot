@@ -14,7 +14,7 @@ export default async (id) => {
 
     if (dexGuruResponse && dexGuruResponse.data) {
       await knex("token_price").where({ id }).update({
-        volume_24h: dexGuruResponse.data.volume_24h,
+        volume_24h: dexGuruResponse.data.volume_24h_usd,
         liquidity: dexGuruResponse.data.liquidity_usd,
       });
     }

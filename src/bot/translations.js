@@ -65,6 +65,7 @@ export default {
     userAmountTitle: "Количество: <%= amount %> (<%= percent %>%)",
     userCostTitle: "Стоимость: ≈<%= cost %> (<%= price %>)",
     priceChartTitle: "MAIN/USD График цены за последние 24 часа",
+    priceChartSubtitle: "Объем торгов: <%= volume %>$ | Ликвидность: <%= liquidity %>$",
     
     keyboardSendTokens: "Отправить токены",
     keyboardCancel: "Отмена",
@@ -147,6 +148,7 @@ export default {
     userAmountTitle: "Amount: <%= amount %> (<%= percent %>%)",
     userCostTitle: "Cost: ≈<%= cost %> (<%= price %>)",
     priceChartTitle: "MAIN/USD Price Chart Past 24 Hours",
+    priceChartSubtitle: "Volume: <%= volume %>$ | Liquidity: <%= liquidity %>$",
     
     keyboardSendTokens: "Send tokens",
     keyboardCancel: "Cancel",

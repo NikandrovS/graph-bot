@@ -31,7 +31,16 @@ export default {
       title: "",
       field: "date",
       type: "temporal",
-      axis: { format: "%H", tickCount: 6, labelFontSize: 23, tickSize: 10, tickWidth: 3 },
+      axis: {
+        format: "%H",
+        tickCount: 6,
+        labelFontSize: 23,
+        tickSize: 10,
+        tickWidth: 3,
+        titleFontSize: 22,
+        titlePadding: 20,
+        titleColor: "#5b5b5b",
+      },
     },
     y: {
       title: "",
