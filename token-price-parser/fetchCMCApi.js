@@ -31,14 +31,14 @@ export default async () => {
         .whereBetween("value", [previousPrice, newPrice].sort())
         .first();
 
-      if (!result) return;
+      if (result) {
+        const msg = generateTokenPriceMessage(previousPrice, newPrice);
 
-      const msg = generateTokenPriceMessage(previousPrice, newPrice);
-
-      rabbitService.send(msg);
+        rabbitService.send(msg);
+      }
     }
 
-    await fetchDexGuru(newId)
+    await fetchDexGuru(newId);
   } catch (error) {
     console.error("📛 ~ error", error.message || error);
   }
