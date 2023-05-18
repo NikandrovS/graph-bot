@@ -36,7 +36,10 @@ currentTokenPriceChart.enter(async (ctx) => {
     tokenPriceChart.title.text = text(ctx, "priceChartTitle");
     tokenPriceChart.title.subtitle = `${todayRatio >= 1 ? "⇧" : "⇩"} ${percent.toFixed(2)}%`;
 
-    const metaInfo = values.find((price) => price.liquidity && price.volume_24h);
+    const metaInfo = values
+      .slice()
+      .reverse()
+      .find((price) => price.liquidity && price.volume_24h);
 
     if (metaInfo) {
       tokenPriceChart.encoding.x.title = text(ctx, "priceChartSubtitle", {
