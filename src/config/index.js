@@ -3,6 +3,7 @@ dotenv.config();
 
 const app = {
   mainDB: process.env.MYSQL_DATABASE || "main_chart_bot",
+  dexGuruToken: process.env.DEX_GURU_API_KEY,
   moralisToken: process.env.MORALIS_API_KEY,
   cmcToken: process.env.CMC_API_KEY,
   botToken: process.env.BOT_TOKEN,
