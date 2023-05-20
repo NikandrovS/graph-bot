@@ -11,7 +11,10 @@ currentTokenPrice.enter(async (ctx) => {
 
   const currentPrice = (lastRecord.usd_price * multiplier).toFixed(2);
 
-  await ctx.reply(text(ctx, "currentTokenPrice", { currentPrice, multiplier }), cmcKeyboard(text(ctx, "openCmcChart")));
+  await ctx.reply(
+    text(ctx, "currentTokenPrice", { currentPrice, multiplier }),
+    cmcKeyboard(text(ctx, "stakeMain"), text(ctx, "buyMain"), text(ctx, "openCmcChart"))
+  );
 
   return ctx.scene.leave();
 });
