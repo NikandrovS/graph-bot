@@ -26,6 +26,7 @@ const rabbit = {
 };
 
 const token = {
+  usdtAddress: "0x55d398326f99059fF775485246999027B3197955",
   address: "0xa5f249f401ba8931899a364d8e2699b5fa1d87a9",
   cmcMainId: "19764",
   multiplier: 1000,

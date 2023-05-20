@@ -10,6 +10,7 @@ const __dirname = path.dirname("./");
 import text from "../handlers/translatedText.js";
 import { knex } from "../../models/index.js";
 import { Scenes } from "telegraf";
+import config from "../../config/index.js";
 
 const currentTokenPriceChart = new Scenes.BaseScene("currentTokenPriceChart");
 
@@ -71,7 +72,19 @@ currentTokenPriceChart.enter(async (ctx) => {
             {
               caption: text(ctx, "currentTokenPrice", { currentPrice, multiplier }),
               reply_markup: {
-                inline_keyboard: [[{ text: text(ctx, "openCmcChart"), url: "https://coinmarketcap.com/currencies/main-community/" }]],
+                inline_keyboard: [
+                  [
+                    {
+                      text: text(ctx, "stakeMain"),
+                      url: "https://app.earnpark.com/r?p=rzXD3YO8",
+                    },
+                    {
+                      text: text(ctx, "buyMain"),
+                      url: `https://pancakeswap.finance/swap?inputCurrency=${config.token.usdtAddress}&outputCurrency=${config.token.address}`,
+                    },
+                  ],
+                  [{ text: text(ctx, "openCmcChart"), url: "https://coinmarketcap.com/currencies/main-community/" }],
+                ],
               },
             }
           );
