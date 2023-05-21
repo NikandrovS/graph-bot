@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default () => {
-  new CronJob("* * * *", fetchDappRadar, null, true, "Europe/Moscow");
+  new CronJob("0 0 * * * *", fetchDappRadar, null, true, "Europe/Moscow");
 };
 
 export const fetchDappRadar = async () => {
