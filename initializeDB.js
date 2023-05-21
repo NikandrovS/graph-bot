@@ -59,8 +59,8 @@ const tables = [
     table.decimal("usd_price", 19, 18).notNullable();
     table.decimal("bnb_price", 19, 18).notNullable();
     table.timestamp("time").notNullable().defaultTo(knex.fn.now());
-    table.decimal("liquidity", 22, 18).unsigned().notNullable();
-    table.decimal("volume_24h", 22, 18).unsigned().notNullable();
+    table.decimal("liquidity", 22, 18).unsigned();
+    table.decimal("volume_24h", 22, 18).unsigned();
   }),
   knex.schema.createTable("users_wallets", (table) => {
     table.increments("id");
@@ -71,6 +71,12 @@ const tables = [
     table.specificType("wallet", "CHAR(42)").notNullable();
     table.specificType("token", "CHAR(42)").notNullable();
     table.decimal("balance", 26, 0).notNullable().unsigned();
+  }),
+  knex.schema.createTable("chain_stats", (table) => {
+    table.increments("id");
+    table.integer("uaw").unsigned();
+    table.integer("transactions").unsigned();
+    table.timestamp("time").notNullable().defaultTo(knex.fn.now());
   }),
 ];
 
