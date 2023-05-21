@@ -66,6 +66,7 @@ export default {
     userCostTitle: "Стоимость: ≈<%= cost %> (<%= price %>)",
     priceChartTitle: "MAIN/USD График цены за последние 24 часа",
     priceChartSubtitle: "Объем торгов: <%= volume %>$ | Ликвидность: <%= liquidity %>$",
+    priceChartSubtitleExtended: "Транзакций: <%= transactions %> | UAW: <%= uaw %>",
     buyMain: "Купить $MAIN",
     stakeMain: "Стейкинг $MAIN",
     
@@ -151,6 +152,7 @@ export default {
     userCostTitle: "Cost: ≈<%= cost %> (<%= price %>)",
     priceChartTitle: "MAIN/USD Price Chart Past 24 Hours",
     priceChartSubtitle: "Volume: <%= volume %>$ | Liquidity: <%= liquidity %>$",
+    priceChartSubtitleExtended: "Transactions: <%= transactions %> | UAW: <%= uaw %>",
     buyMain: "Buy $MAIN",
     stakeMain: "Stake $MAIN",
     

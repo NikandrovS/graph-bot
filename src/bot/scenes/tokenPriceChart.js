@@ -27,6 +27,8 @@ currentTokenPriceChart.enter(async (ctx) => {
       .where("time", "<", dateTo)
       .where("time", ">=", dateFrom);
 
+    if (!values.length) return ctx.reply("No data available");
+
     const currentPrice = (+values[values.length - 1].price).toFixed(2);
     const todayRatio = +values[values.length - 1].price / +values[1].price;
 
@@ -42,11 +44,18 @@ currentTokenPriceChart.enter(async (ctx) => {
       .reverse()
       .find((price) => price.liquidity && price.volume_24h);
 
+    const chainStats = await knex("chain_stats").orderBy("id", "desc").first();
+
     if (metaInfo) {
-      tokenPriceChart.encoding.x.title = text(ctx, "priceChartSubtitle", {
-        liquidity: (+metaInfo.liquidity).toFixed(1),
-        volume: (+metaInfo.volume_24h).toFixed(1),
-      });
+      const additionalInfo = chainStats
+        ? text(ctx, "priceChartSubtitleExtended", { uaw: chainStats.uaw, transactions: chainStats.transactions }, " | ")
+        : "";
+
+      tokenPriceChart.encoding.x.title =
+        text(ctx, "priceChartSubtitle", {
+          liquidity: (+metaInfo.liquidity).toFixed(1),
+          volume: (+metaInfo.volume_24h).toFixed(1),
+        }) + additionalInfo;
     }
 
     const data = { values };
