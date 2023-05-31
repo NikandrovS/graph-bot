@@ -47,8 +47,7 @@ currentTokenPriceChart.enter(async (ctx) => {
     const chainStats = await knex("chain_stats").orderBy("id", "desc").first();
 
     if (metaInfo) {
-      // const additionalInfo = chainStats
-      const additionalInfo = false
+      const additionalInfo = chainStats
         ? text(ctx, "priceChartSubtitleExtended", { uaw: chainStats.uaw, transactions: chainStats.transactions }, " | ")
         : "";
 
