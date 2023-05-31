@@ -1,6 +1,5 @@
 import generateTokenPriceMessage from "./generateTokenPriceMessage.js";
 import rabbitService from "../supply-parser/RabbitService.js";
-// import fetchDexGuru from "../src/crons/fetchDexGuruApi.js";
 import { knex } from "../src/models/index.js";
 import config from "../src/config/index.js";
 import axios from "axios";
@@ -12,18 +11,23 @@ export default async () => {
     const lastRecord = await knex("token_price").orderBy("id", "desc").first();
 
     const { data } = await axios({
+      url: `https://coins.llama.fi/prices/current/bsc:0xA5F249F401bA8931899a364d8E2699b5FA1D87a9?searchWidth=1h`,
       method: "get",
-      headers: { "X-CMC_PRO_API_KEY": config.cmcToken },
-      url: `https://pro-api.coinmarketcap.com/v2/tools/price-conversion?amount=1&id=${config.token.cmcMainId}`,
     });
 
-    if (!data) throw new Error("No data received from Coin Market Cap");
+    if (!data) throw new Error("No data received from Defi Llama");
 
-    const [newId] = await knex("token_price").insert({ bnb_price: 0, usd_price: data.data.quote.USD.price, time });
+    const apiNewPrice = (data.coins["bsc:0xA5F249F401bA8931899a364d8E2699b5FA1D87a9"].price).toFixed(18)
 
-    if (data.data.quote.USD.price !== lastRecord.usd_price) {
+    await knex("token_price").insert({
+      bnb_price: 0,
+      usd_price: apiNewPrice,
+      time,
+    });
+
+    if (apiNewPrice !== lastRecord.usd_price) {
       const previousPrice = lastRecord.usd_price * config.token.multiplier;
-      const newPrice = data.data.quote.USD.price * config.token.multiplier;
+      const newPrice = apiNewPrice * config.token.multiplier;
 
       const result = await knex("listeners")
         .select("user_id")
@@ -37,9 +41,7 @@ export default async () => {
         rabbitService.send(msg);
       }
     }
-
-    // await fetchDexGuru(newId);
   } catch (error) {
-    console.error("📛 ~ error", error.message || error);
+    console.error("📛 ~ error with llama api", error.message || error);
   }
 };
