@@ -1,5 +1,6 @@
 import { knex } from "../models/index.js";
 import config from "../config/index.js";
+import { CronJob } from "cron";
 import axios from "axios";
 
 export default () => {
