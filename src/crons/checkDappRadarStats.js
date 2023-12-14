@@ -14,7 +14,7 @@ export const fetchDappRadar = async () => {
   try {
     const time = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    const { data } = await axios.get("https://api.dappradar.com/4tsxo4vuhotaojtl/dapps/7793?chain=binance-smart-chain", {
+    const { data } = await axios.get("https://api.dappradar.com/4tsxo4vuhotaojtl/dapps/7793?chain=bnb-chain", {
       headers: {
         "X-BLOBR-KEY": config.dappRadarToken,
       },
