@@ -20,18 +20,18 @@ export const fetchBoards = async () => {
 
     if (!data) return;
 
-    const resCount = data.metadata.count;
+    const boardList = data.items.filter((item) => item.coin);
 
     const existedCount = await knex("boards")
       .count("* as count")
       .first()
       .then((r) => r.count);
 
-    const missingCount = resCount - existedCount;
+    const missingCount = boardList.length - existedCount;
 
     if (!missingCount || missingCount < 0) return;
 
-    const boardsToInsert = data.items.slice(-missingCount).map(({ title, url, coin }) => ({
+    const boardsToInsert = boardList.slice(-missingCount).map(({ title, url, coin }) => ({
       address: coin.contractAddress,
       title,
       url,
@@ -41,7 +41,7 @@ export const fetchBoards = async () => {
 
     if (missingCount > 100) return;
 
-    const newBoards = data.items.slice(-missingCount);
+    const newBoards = boardList.slice(-missingCount);
 
     for (const [i, board] of newBoards.entries()) {
       const { data } = await axios.get(`https://app.main.community/tags/${board.id}/moderators`);
