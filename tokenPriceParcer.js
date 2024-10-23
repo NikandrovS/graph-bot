@@ -5,5 +5,5 @@ import { CronJob } from "cron";
 
 (() => {
   // new CronJob("*/5 * * * *", fetchPrice, null, true, "Europe/Moscow");
-  new CronJob("0 * * * * *", fetchPrice, null, true, "Europe/Moscow");
+  new CronJob("0 */5 * * * *", fetchPrice, null, true, "Europe/Moscow");
 })();
